@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "city": "Poznan",
+    "name": "Bartosz",
+    "lastName": "Piatek",
+    "pesel": "87080704392"
+  },
+  {
+    "id": 2,
+    "city": "Warszawa",
+    "name": "Jan",
+    "lastName": "Nowak",
+    "pesel": "97070248582"
+  }
+]
