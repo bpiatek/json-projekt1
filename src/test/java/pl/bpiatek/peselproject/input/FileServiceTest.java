@@ -2,6 +2,7 @@ package pl.bpiatek.peselproject.input;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pl.bpiatek.peselproject.file.FileService;
@@ -21,6 +22,12 @@ class FileServiceTest {
   @BeforeAll
   static void setUp() throws IOException, ClassNotFoundException {
     fileService = new FileService(path);
+  }
+
+  @AfterEach
+  void cleanUp() {
+    fileService.getFile().delete();
+    System.out.println("Plik po tescie zostal usuniety!");
   }
 
   @Test

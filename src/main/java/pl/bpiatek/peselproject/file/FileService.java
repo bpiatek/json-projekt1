@@ -3,6 +3,7 @@ package pl.bpiatek.peselproject.file;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.bpiatek.peselproject.person.Person;
@@ -10,6 +11,8 @@ import pl.bpiatek.peselproject.person.Person;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +22,14 @@ import java.util.List;
 @Service
 public class FileService {
 
+  @Getter
   private File file;
   private Gson gson;
 
   public FileService(@Value("${databasefile.path}") String path) {
     this.gson = new GsonBuilder().setPrettyPrinting().create();
-    file = new File(path);
+
+    file = new File(path + (LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-YY_HH-mm-ss"))) + ".json");
   }
 
   public Person saveJsonToFile(Person person) {
@@ -62,7 +67,7 @@ public class FileService {
     try {
       return new String(Files.readAllBytes(file.toPath()));
     } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println("Plik nie istnieje. Tworze plik: " + file.getName());
     }
     return null;
   }
